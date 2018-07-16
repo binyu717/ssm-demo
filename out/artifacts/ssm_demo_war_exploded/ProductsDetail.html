@@ -1,0 +1,198 @@
+
+		<!DOCTYPE html><html><html xmlns:th="http://www.w3.org/1999/xhtml"><head th:include="/common/head::html"></head><body class="skin-1"><div id="wrapper">    <nav class="navbar-default navbar-static-side" role="navigation" th:include="/common/nav::html">    </nav>    <div id="page-wrapper" class="gray-bg">        <div class="row border-bottom" th:include="/common/top::html">        </div>
+
+
+
+		<div class="wrapper wrapper-content width-100">
+
+	
+	<div class="ibox float-e-margins">
+	    <div class="ibox-title">
+	        <h5 > 新增Products </h5>
+	        <div class="ibox-tools">
+	            <a href="javascript:void(0)" data-action="fullscreen" data-rel="tooltip" title="全屏显示">
+
+	            </a>
+	            &nbsp;&nbsp;
+
+	        </div>
+	    </div>
+	    <div class="ibox-content">
+	        <div class="widget-main no-padding-left no-padding-right">
+		        <form class="form-horizontal"  style="border-left: 1px dotted rgb(226, 226, 226);" id="validation-form" name="validation-form">
+
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"> 商品名称： </label>
+								<div class="col-sm-4">
+									<input type="text" id="name" name="name" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"> 商品分类ID： </label>
+								<div class="col-sm-4">
+									<input type="text" id="catalog" name="catalog" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"> 商品分类名称： </label>
+								<div class="col-sm-4">
+									<input type="text" id="catalogName" name="catalogName" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"> 价格： </label>
+								<div class="col-sm-4">
+									<input type="text" id="price" name="price" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"> 数量： </label>
+								<div class="col-sm-4">
+									<input type="text" id="number" name="number" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"> 商品描述： </label>
+								<div class="col-sm-4">
+									<input type="text" id="description" name="description" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"> 图片名称： </label>
+								<div class="col-sm-4">
+									<input type="text" id="picture" name="picture" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"> 上架时间： </label>
+								<div class="col-sm-4">
+									<input type="text" id="releaseTime" name="releaseTime" class="form-control" />
+								</div>
+							</div>
+
+		            <div class="form-group" >
+						<div class="col-sm-4 col-sm-offset-2">
+	                	<button class="btn btn-info" type="button" onclick="save(this)" >
+	                        <i class="ace-icon fa fa-check bigger-110"></i>保存
+	                    </button>
+	                    <a class="btn btn-white" th:href="|@{/}tran/Products.html|" >
+	                        <i class="ace-icon fa fa-undo bigger-110"></i>返回
+	                    </a>
+                    </div>
+					</div>
+		        </form>
+	        </div>
+	    </div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+  	$('#validation-form').validate({
+		errorElement: 'div',
+		errorClass: 'help-block',
+		focusInvalid: false,
+		rules: {
+    	name: {
+				required: true,
+				maxlength: 32
+			},
+    	catalog: {
+				required: true,
+				maxlength: 32
+			},
+    	catalogName: {
+				required: true,
+				maxlength: 32
+			},
+    	price: {
+				required: true,
+				maxlength: 32
+			},
+    	number: {
+				required: true,
+				maxlength: 32
+			},
+    	description: {
+				required: true,
+				maxlength: 32
+			},
+    	picture: {
+				required: true,
+				maxlength: 32
+			},
+    	releaseTime: {
+				required: true,
+				maxlength: 32
+			},
+		},
+		messages: {
+            name: {
+                required: "请填商品名称",
+                    maxlength: "商品名称不能多余32个字符"
+            },
+            catalog: {
+                required: "请填商品分类ID",
+                    maxlength: "商品分类ID不能多余32个字符"
+            },
+            catalogName: {
+                required: "请填商品分类名称",
+                    maxlength: "商品分类名称不能多余32个字符"
+            },
+            price: {
+                required: "请填价格",
+                    maxlength: "价格不能多余32个字符"
+            },
+            number: {
+                required: "请填数量",
+                    maxlength: "数量不能多余32个字符"
+            },
+            description: {
+                required: "请填商品描述",
+                    maxlength: "商品描述不能多余32个字符"
+            },
+            picture: {
+                required: "请填图片名称",
+                    maxlength: "图片名称不能多余32个字符"
+            },
+            releaseTime: {
+                required: "请填上架时间",
+                    maxlength: "上架时间不能多余32个字符"
+            },
+		},
+		highlight: function (e) {
+			$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+		},
+		success: function (e) {
+			$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+			$(e).remove();
+		},
+		errorPlacement: function (error, element) {
+			element.closest("div.form-group").append(error);
+		}
+	});
+});
+  
+function save(target){
+  	if($('#validation-form').valid()){
+  		$(target).attr("disabled", "disabled");
+  		jQuery.ajax({
+  			type:"post",
+  			url:"[[@{/}]]tran/Products/[[${operation}]].html",
+  			data:$('#validation-form').serialize(),
+  			dataType: "json",
+  			success:function(data){
+  				if(data.data == -1){
+  					$(target).removeAttr("disabled");
+  				}else{
+  					location.href = "[[@{/}]]tran/Products.html";
+  				}
+  			}
+  		});
+  	}
+}
+
+</script>
+
+		<div class="footer"  th:include="/common/bottom::html"></div>    </div></div></body></html>
