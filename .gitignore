@@ -19,6 +19,8 @@
 *.jar
 *.rar
 */*/target
+.target
+.class/*
 .class
 *.class
 *.zip
