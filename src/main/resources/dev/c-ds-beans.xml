@@ -47,6 +47,7 @@
         <property name="dataSource" ref="localDs"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <!--<property name="mapperLocations" value="classpath:mybatis/mappers/*/*.xml"/>-->
+        <!--<property name="mapperLocations" value="classpath:mybatis/mappers/*/*.xml"/>-->
     </bean>
 
     <bean id="localScan" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
