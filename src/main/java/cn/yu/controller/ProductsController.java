@@ -1,14 +1,13 @@
 package cn.yu.controller;
 
-import cn.yu.model.Products;
+import cn.yu.model.ProductQuery;
 import cn.yu.services.ProductsService;
+import cn.yu.utils.response.PageInfo;
 import cn.yu.utils.response.ResponseInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * @author bin.yu
@@ -23,8 +22,8 @@ public class ProductsController {
 
     @ResponseBody
     @RequestMapping("queryProduct")
-    public ResponseInfo queryProduct(Products queryModel) {
-        List<Products> productsModels = productsService.queryProducts(queryModel);
-        return ResponseInfo.success(productsModels);
+    public ResponseInfo queryProduct(ProductQuery queryModel) {
+        PageInfo pageInfo = productsService.queryProducts(queryModel);
+        return ResponseInfo.success(pageInfo);
     }
 }

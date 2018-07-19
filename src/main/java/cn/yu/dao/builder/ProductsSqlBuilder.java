@@ -1,6 +1,7 @@
 package cn.yu.dao.builder;
 
-import cn.yu.model.Products;
+import cn.yu.model.Product;
+import cn.yu.model.ProductQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -10,7 +11,7 @@ import org.apache.ibatis.jdbc.SQL;
  **/
 public class ProductsSqlBuilder {
 
-    public String insertProduct(Products Products) {
+    public String insertProduct(Product Products) {
         return new SQL() {{
             INSERT_INTO("products");
             if (StringUtils.isNotEmpty(Products.getName())) {
@@ -38,10 +39,13 @@ public class ProductsSqlBuilder {
         }}.toString();
     }
 
-    public String queryProducts(Products queryDo) {
-        return new SQL() {{
+    public String queryProducts(ProductQuery queryDo) {
+        String sql = new SQL() {{
             SELECT("*");
             FROM("products");
+            if (queryDo.getId() != null) {
+                WHERE("id = #{id}");
+            }
             if (StringUtils.isNotEmpty(queryDo.getName())) {
                 WHERE("name = #{name}");
             }
@@ -60,8 +64,41 @@ public class ProductsSqlBuilder {
             if (StringUtils.isNotEmpty(queryDo.getDescription())) {
                 WHERE("description=#{description}");
             }
-            if (StringUtils.isNotEmpty(queryDo.getPicture())) {
-                WHERE("picture=#{picture}");
+            if (StringUtils.isNotBlank(queryDo.getSortName())&&StringUtils.isNotBlank(queryDo.getSort())) {
+                ORDER_BY(queryDo.getSortName()+" "+queryDo.getSort());
+
+            }
+        }}.toString();
+
+        long start = (queryDo.getPageNo()-1)*queryDo.getPageSize();
+        sql+=" limit "+start+","+queryDo.getPageSize();
+        return sql;
+    }
+
+    public String countProducts(ProductQuery query) {
+        return   new SQL() {{
+            SELECT("COUNT(*)");
+            FROM("products");
+            if (query.getId() != null) {
+                WHERE("id = #{id}");
+            }
+            if (StringUtils.isNotEmpty(query.getName())) {
+                WHERE("name = #{name}");
+            }
+            if (query.getCatalog() != null) {
+                WHERE("catalog=#{catalog}");
+            }
+            if (StringUtils.isNotEmpty(query.getCatalogName())) {
+                WHERE("catalogName=#{catalogName}");
+            }
+            if (query.getPrice() != null) {
+                WHERE("price=#{price}");
+            }
+            if (query.getNumber() != null) {
+                WHERE("number=#{number}");
+            }
+            if (StringUtils.isNotEmpty(query.getDescription())) {
+                WHERE("description=#{description}");
             }
         }}.toString();
     }

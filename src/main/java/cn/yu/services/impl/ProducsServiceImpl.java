@@ -1,12 +1,12 @@
 package cn.yu.services.impl;
 
 import cn.yu.dao.ProductsDao;
-import cn.yu.model.Products;
+import cn.yu.model.Product;
+import cn.yu.model.ProductQuery;
 import cn.yu.services.ProductsService;
+import cn.yu.utils.response.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author bin.yu
@@ -19,12 +19,12 @@ public class ProducsServiceImpl implements ProductsService {
     private ProductsDao productsDao;
 
     @Override
-    public Integer insertProduct(Products productsModel) {
+    public Integer insertProduct(Product productsModel) {
         return productsDao.insertProduct(productsModel);
     }
 
     @Override
-    public List<Products> queryProducts(Products queryModel) {
+    public PageInfo queryProducts(ProductQuery queryModel) {
         return productsDao.queryProducts(queryModel);
     }
 }

@@ -1,8 +1,8 @@
 package cn.yu.dao;
 
-import cn.yu.model.Products;
-
-import java.util.List;
+import cn.yu.model.Product;
+import cn.yu.model.ProductQuery;
+import cn.yu.utils.response.PageInfo;
 
 /**
  * @author bin.yu
@@ -10,7 +10,7 @@ import java.util.List;
  **/
 public interface ProductsDao {
 
-    Integer insertProduct(Products productsDo);
+    Integer insertProduct(Product productsDo);
 
-    List<Products> queryProducts(Products queryDo);
+    PageInfo queryProducts(ProductQuery queryDo);
 }

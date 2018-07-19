@@ -1,7 +1,8 @@
 package cn.yu.dao.mapper;
 
 import cn.yu.dao.builder.ProductsSqlBuilder;
-import cn.yu.model.Products;
+import cn.yu.model.Product;
+import cn.yu.model.ProductQuery;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.SelectProvider;
 
@@ -16,8 +17,11 @@ import java.util.List;
 public interface ProductsMapper {
 
     @InsertProvider(type = ProductsSqlBuilder.class,method = "insertProduct")
-    Integer insertProduct(Products productsDo);
+    Integer insertProduct(Product productsDo);
 
     @SelectProvider(type = ProductsSqlBuilder.class,method = "queryProducts")
-    List<Products> queryProducts(Products queryDo);
+    List<Product> queryProducts(ProductQuery queryDo);
+
+    @SelectProvider(type = ProductsSqlBuilder.class,method = "countProducts")
+    Long countProducts(ProductQuery query);
 }

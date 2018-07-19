@@ -2,7 +2,9 @@ package cn.yu.dao.impl;
 
 import cn.yu.dao.ProductsDao;
 import cn.yu.dao.mapper.ProductsMapper;
-import cn.yu.model.Products;
+import cn.yu.model.Product;
+import cn.yu.model.ProductQuery;
+import cn.yu.utils.response.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,12 +21,19 @@ public class ProductsDaoImpl implements ProductsDao {
     private ProductsMapper productsMapper;
 
     @Override
-    public Integer insertProduct(Products productsDo) {
+    public Integer insertProduct(Product productsDo) {
         return productsMapper.insertProduct(productsDo);
     }
 
     @Override
-    public List<Products> queryProducts(Products queryDo) {
-        return productsMapper.queryProducts(queryDo);
+    public PageInfo queryProducts(ProductQuery queryDo) {
+        PageInfo pageInfo = new PageInfo();
+        List<Product> products = productsMapper.queryProducts(queryDo);
+        Long total = productsMapper.countProducts(queryDo);
+        pageInfo.setList(products);
+        pageInfo.setPageNo(queryDo.getPageNo());
+        pageInfo.setPageSize(queryDo.getPageSize());
+        pageInfo.setTotalNum(total);
+        return pageInfo;
     }
 }

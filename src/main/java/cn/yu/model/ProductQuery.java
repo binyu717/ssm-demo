@@ -1,12 +1,10 @@
 package cn.yu.model;
 
-import java.util.Date;
-
 /**
  * @author bin.yu
- * @create 2018-05-28 18:51
+ * @create 2018-07-18 8:47
  **/
-public class Products {
+public class ProductQuery {
 
     private Integer id;
     private String name;
@@ -15,8 +13,11 @@ public class Products {
     private Double price;
     private Integer number;
     private String description;
-    private String picture;
-    private Date releaseTime;
+
+    private String sortName;
+    private String sort;
+    private Long pageSize;
+    private Long pageNo;
 
     public Integer getId() {
         return id;
@@ -74,19 +75,35 @@ public class Products {
         this.description = description;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getSortName() {
+        return sortName;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setSortName(String sortName) {
+        this.sortName = sortName;
     }
 
-    public Date getReleaseTime() {
-        return releaseTime;
+    public String getSort() {
+        return sort;
     }
 
-    public void setReleaseTime(Date releaseTime) {
-        this.releaseTime = releaseTime;
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
+    public Long getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Long getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(Long pageNo) {
+        this.pageNo = pageNo;
     }
 }

@@ -1,8 +1,8 @@
 package cn.yu.services;
 
-import cn.yu.model.Products;
-
-import java.util.List;
+import cn.yu.model.Product;
+import cn.yu.model.ProductQuery;
+import cn.yu.utils.response.PageInfo;
 
 /**
  * @author bin.yu
@@ -10,7 +10,7 @@ import java.util.List;
  **/
 public interface ProductsService {
 
-    Integer insertProduct(Products productsModel);
+    Integer insertProduct(Product productsModel);
 
-    List<Products> queryProducts(Products queryModel);
+    PageInfo queryProducts(ProductQuery queryModel);
 }
