@@ -29,4 +29,3 @@
 *.classpath
 *.project
 
-account-web/src/main/webapp/WEB-INF/static/*

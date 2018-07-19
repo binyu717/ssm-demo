@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>产品列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="/js/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css" type="text/css">
+
+</head>
+<body>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-md-offset-3">
+            <div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>商品名称</th>
+                        <th>商品分类名称</th>
+                        <th>价格</th>
+                        <th>数量</th>
+                        <!--<th>商品描述</th>-->
+                        <th>上架时间</th>
+                        <th>删除</th>
+                    </tr>
+                    </thead>
+                    <tbody id="template" style="display: none;">
+                    <tr>
+                        <td class="name"></td>
+                        <td class="catalogName"></td>
+                        <td class="price"></td>
+                        <td class="number"></td>
+                        <!--<td class="description"></td>-->
+                        <td class="releaseTime"></td>
+                        <td class="id"></td>
+                    </tr>
+                    </tbody>
+                    <tbody id="content">
+
+                    </tbody>
+                </table>
+
+                <nav aria-label="Page navigation">
+                    <ul class="pagination"  id="pageUl">
+                        <li>
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li><a href="#" id="liTemp" >1</a></li>
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+</body>
+
+<script>
+    /**
+     * Date格式化字符串("yyyy-MM-dd hh:mm:ss.S"=>"2006-7-2 8:9:4.18")
+     * @param {String} fmt 日期的字符串格式规则
+     * @return {String} 格式化后的字符串
+     */
+    Date.prototype.format = Date.prototype.format || function ( fmt ) {
+        var o = {
+            "M+" : this.getMonth()+1, // 月份
+            "d+" : this.getDate(), // 日
+            "h+" : this.getHours(), // 小时
+            "m+" : this.getMinutes(), // 分
+            "s+" : this.getSeconds(), // 秒
+            "q+" : Math.floor((this.getMonth()+3)/3), // 季度
+            "S" : this.getMilliseconds() // 毫秒
+        };
+
+        if (/(y+)/.test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+        }
+
+        for (var k in o) {
+            if(new RegExp("("+ k +")").test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+            }
+        }
+
+        return fmt;
+    };
+
+    $(function () {
+
+        getList();
+        function getList() {
+            $.ajax({
+                url: "/products/queryProduct",
+                data:{catalog:17,sortName:"price",sort:"desc",pageNo:1,pageSize:30},
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    var content = $("#content");
+                    if (data.data.list.length > 0){
+                        content.empty();
+                        $.each(data.data.list,function (index, item) {
+                            var tr = $("#template").children().clone();
+                            $.each(item,function (key, value) {
+                                if (key == "id") {
+                                    tr.find("." + key).attr("primary", value).html('<a href="javascript:;" class="deleteA">delete</a>');
+                                }else if (key == "releaseTime") {
+                                    tr.find("." + key).html(new Date(value).format('yyyy-MM-dd'));
+                                } else {
+                                    tr.find("." + key).html(value);
+                                }
+                                content.append(tr);
+                            })
+                        })
+                    }
+                },
+                error: function () {
+                    alert("出现异常")
+                }
+            });
+        }
+
+
+        $("#content").on("click",".deleteA",function () {
+            if (confirm("确定删除？")){
+                $.ajax({
+                    url: "/user/deleteUser",
+                    data: {"id":$(this).parent().attr("primary")},
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != null) {
+                            getList();
+                            alert(data.msg);
+                        }
+                    },
+                    error: function () {
+                        alert("出现异常");
+                    }
+                });
+            }
+        })
+
+
+    })
+
+
+
+
+</script>
+</html>
