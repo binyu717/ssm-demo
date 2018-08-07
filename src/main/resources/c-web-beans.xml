@@ -16,7 +16,7 @@
     <bean id="configurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <array>
-                <value>classpath:dev/app-env.properties</value>
+                <value>classpath:${env}/app-env.properties</value>
             </array>
         </property>
     </bean>
@@ -25,7 +25,7 @@
           class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">
             <array>
-                <value>classpath:dev/app-env.properties</value>
+                <value>classpath:${env}/app-env.properties</value>
             </array>
         </property>
         <property name="fileEncoding" value="utf-8"/>
@@ -36,7 +36,7 @@
         <!--<property name="defaultEncoding" value="utf-8"/>-->
     <!--</bean>-->
 
-    <import resource="dev/c-ds-beans.xml"/>
+    <import resource="${env}/c-ds-beans.xml"/>
 
 
 </beans>

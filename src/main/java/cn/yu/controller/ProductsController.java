@@ -4,6 +4,7 @@ import cn.yu.model.ProductQuery;
 import cn.yu.services.ProductsService;
 import cn.yu.utils.response.PageInfo;
 import cn.yu.utils.response.ResponseInfo;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,12 @@ public class ProductsController {
     @ResponseBody
     @RequestMapping("queryProduct")
     public ResponseInfo queryProduct(ProductQuery queryModel) {
-        PageInfo pageInfo = productsService.queryProducts(queryModel);
-        return ResponseInfo.success(pageInfo);
+        try {
+            PageInfo pageInfo = productsService.queryProducts(queryModel);
+            return ResponseInfo.success(pageInfo);
+        } catch (Exception e) {
+            LoggerFactory.getLogger(getClass()).error("查询异常：{}" + e);
+            return ResponseInfo.error(e + e.getMessage());
+        }
     }
 }

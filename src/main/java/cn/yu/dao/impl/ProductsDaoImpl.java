@@ -5,6 +5,7 @@ import cn.yu.dao.mapper.ProductsMapper;
 import cn.yu.model.Product;
 import cn.yu.model.ProductQuery;
 import cn.yu.utils.response.PageInfo;
+import com.google.common.base.CaseFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,5 +36,10 @@ public class ProductsDaoImpl implements ProductsDao {
         pageInfo.setPageSize(queryDo.getPageSize());
         pageInfo.setTotalNum(total);
         return pageInfo;
+    }
+
+    public static void main(String[] args) {
+        String userAdmin = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, "userAdmin");
+        System.out.println(userAdmin);
     }
 }
