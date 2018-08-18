@@ -18,6 +18,7 @@
 .idea/workspace.xml
 *.jar
 *.rar
+*.war
 */*/target
 .target
 .target/*

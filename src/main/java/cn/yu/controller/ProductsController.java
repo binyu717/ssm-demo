@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("products")
 public class ProductsController {
 
+
     @Autowired(required=false)
     private ProductsService productsService;
 
