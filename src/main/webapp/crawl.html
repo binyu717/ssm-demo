@@ -116,9 +116,6 @@
     // });
 
     $(function () {
-
-        var pager = $("#pager");
-
         getList(1,20);
         function getList(pageNo,pageSize) {
             $.ajax({
@@ -155,9 +152,6 @@
             });
         }
         var formatPager = function (data) {
-            console.log(data);
-            console.log(data.totalPage);
-            console.log(data.pageNo);
             pager.find("li:not(:first):not(:last)").remove();
             var lastLi = pager.find("li:last");
             lastLi.find("a").data("page",data.totalPage);
@@ -179,6 +173,7 @@
             }
         };
 
+        var pager = $("#pager");
         pager.on("click","a",function () {
             var page = $(this).data("page");
             getList(page,20);

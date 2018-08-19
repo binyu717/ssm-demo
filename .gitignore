@@ -19,7 +19,7 @@
 *.jar
 *.rar
 *.war
-*/*/target
+*/*/target/*
 .target
 .target/*
 .class/*

@@ -2,6 +2,7 @@ package cn.yu.dao.impl;
 
 import cn.yu.dao.ProductsDao;
 import cn.yu.dao.mapper.ProductsMapper;
+import cn.yu.model.KeyAndValue;
 import cn.yu.model.Product;
 import cn.yu.model.ProductQuery;
 import cn.yu.utils.response.PageInfo;
@@ -36,6 +37,11 @@ public class ProductsDaoImpl implements ProductsDao {
         pageInfo.setPageSize(queryDo.getPageSize());
         pageInfo.setTotalNum(total);
         return pageInfo;
+    }
+
+    @Override
+    public List<KeyAndValue> getCatologName() {
+        return productsMapper.getCatologName();
     }
 
     public static void main(String[] args) {
