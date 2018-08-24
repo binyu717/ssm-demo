@@ -19,6 +19,7 @@
 
     <properties>
         <spring.version>4.1.5.RELEASE</spring.version>
+        <aspectjweaver.version>1.8.4</aspectjweaver.version>
         <slf4j.version>1.7.7</slf4j.version>
         <log4j.version>1.2.16</log4j.version>
         <mybatis.version>3.2.6</mybatis.version>
@@ -80,11 +81,17 @@
         <artifactId>spring-web</artifactId>
         <version>${spring.version}</version>
     </dependency>
-    <!--<dependency>-->
-        <!--<groupId>org.springframework</groupId>-->
-        <!--<artifactId>spring-aop</artifactId>-->
-        <!--<version>${spring.version}</version>-->
-    <!--</dependency>-->
+    <!-- AOP 加aop依赖同时要加aspectj，不然报错-->
+    <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>${aspectjweaver.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
@@ -171,20 +178,39 @@
         <version>${joda-time.version}</version>
     </dependency>
     <!--日志-->
-    <!--<dependency>-->
-        <!--<groupId>log4j</groupId>-->
-        <!--<artifactId>log4j</artifactId>-->
-        <!--<version>${log4j.version}</version>-->
-    <!--</dependency>-->
     <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
-        <version>${slf4j.version}</version>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>1.1.7</version>
     </dependency>
+    <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>1.1.7</version>
+    </dependency>
+    <!--爬虫-->
     <dependency>
         <groupId>org.jsoup</groupId>
         <artifactId>jsoup</artifactId>
         <version>${jsoup.version}</version>
+    </dependency>
+    <!--websocket-->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-messaging</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-websocket</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <!--scope provided 仅编译、运行，打包时不会打进去-->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>4.0.0</version>
+        <scope>provided</scope>
     </dependency>
 </dependencies>
 

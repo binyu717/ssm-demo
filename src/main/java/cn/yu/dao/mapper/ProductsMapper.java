@@ -27,6 +27,6 @@ public interface ProductsMapper {
     @SelectProvider(type = ProductsSqlBuilder.class,method = "countProducts")
     Long countProducts(ProductQuery query);
 
-    @Select("select catalog `key`,catalog_name `value` from products group by catalog order by catalog DESC")
+    @Select("select catalog `key`,catalog_name `value` from products group by catalog,catalog_name order by catalog")
     List<KeyAndValue> getCatologName();
 }

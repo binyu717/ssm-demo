@@ -18,13 +18,16 @@
         <h3 class="panel-title"> 产品列表</h3>
     </div>
     <div class="panel-body">
-        <div>
+
+        <div class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Dropup
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li id="tempCatalog" style="display: none;"></li>
+            <ul class="dropdown-menu" id ="menuUlTemp" aria-labelledby="dropdownMenu2" style="display: none;">
+                <li><a></a> </li>
+            </ul>
+            <ul class="dropdown-menu" id = "menuUl" aria-labelledby="dropdownMenu2" >
             </ul>
         </div>
     </div>
@@ -115,8 +118,12 @@
 
     // 初始化下拉列表
     $(function () {
+        $('#dropdownMenu2').click(function() {
+            $('.dropdown-toggle').dropdown();
+        })
         getCatalog();
-        var menu = $(".dropdown-menu")
+        var menuTemp = $("#menuUlTemp");
+        var menuUl = $("#menuUl");
         function getCatalog() {
             $.ajax({
                 url: "/products/getCatalogs",
@@ -124,16 +131,17 @@
                 type: "post",
                 dataType: "json",
                 success:function (data) {
-                    console.log(data)
-                    menu.empty();
-                    $.each(data.data.list,function (index, item) {
-                        var li = $("#tempCatalog").clone();
-                        $.each(item,function (key, value) {
+                    console.log(data);
+                    menuUl.empty();
+                       $.each(data.data,function (index, item) {
+                         var li = menuTemp.children().clone();
+                         $.each(item,function (key, value) {
                             if (key == "key") {
-                                li.data("id", value);
+                                li.children().data("id", value);
                             }else if (key == "value") {
-                                li.html(value);
+                                li.children().html(value);
                             }
+                             menuUl.append(li);
                         });
 
                     });
@@ -144,6 +152,12 @@
 
             })
         }
+
+        menuUl.children().click(function(){
+            var value = menuUl.children().children().data;
+            getList(value, "price", "desc", 1, 20);
+        });
+
     });
 
     // 数据列表
